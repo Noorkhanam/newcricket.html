@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Cricket Game</title>
+<link rel="stylesheet" href="CN.css">
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>🏏 Cricket Game</h1>
+
+<button class="btn bat" onclick="playGame('bat')">Bat</button>
+<button class="btn ball" onclick="playGame('ball')">Ball</button>
+<button class="btn stump" onclick="playGame('stump')">Stump</button>
+
+<button class="btn undo" onclick="undo()">Undo</button>
+<button class="btn reset" onclick="reset()">Reset</button>
+
+<div id="result"></div>
+
+<div class="score">
+    <div class="box win" id="win">Win 0</div>
+    <div class="box lose" id="lose">Lose 0</div>
+    <div class="box tie" id="tie">Tie 0</div>
+</div>
+
+<div class="leaderboard">
+    <h3>🏆 Leaderboard</h3>
+    <p>🧑 Your Wins: <span id="userTotal">0</span></p>
+    <p>🤖 Computer Wins: <span id="compTotal">0</span></p>
+    <p>🤝 Total Ties: <span id="tieTotal">0</span></p>
+</div>
+
+</div>
+
+<script>
+
+let history=[];
+let score={win:0,lose:0,tie:0};
+
+let totalUserWins=0;
+let totalCompWins=0;
+let totalTies=0;
+
+let comp="";
+
+// Computer choice
+function getComp(){
+    let r=Math.random();
+    if(r<0.33) comp="bat";
+    else if(r<0.66) comp="ball";
+    else comp="stump";
+}
+
+// Game logic
+function playGame(user){
+    getComp();
+
+    let res="";
+
+    if(user===comp) res="tie";
+    else if(
+        (user==="bat" && comp==="ball") ||
+        (user==="ball" && comp==="stump") ||
+        (user==="stump" && comp==="bat")
+    ) res="win";
+    else res="lose";
+
+    history.push(res);
+
+    if(res==="win"){
+        score.win++;
+        totalUserWins++;
+    }
+    else if(res==="lose"){
+        score.lose++;
+        totalCompWins++;
+    }
+    else{
+        score.tie++;
+        totalTies++;
+    }
+
+    updateUI(user,res);
+}
+
+// Undo
+function undo(){
+    if(history.length===0) return;
+
+    let last=history.pop();
+
+    if(last==="win"){
+        score.win--;
+        totalUserWins--;
+    }
+    else if(last==="lose"){
+        score.lose--;
+        totalCompWins--;
+    }
+    else{
+        score.tie--;
+        totalTies--;
+    }
+
+    updateUI();
+}
+
+// Reset (ONLY current match reset)
+function reset(){
+    history=[];
+    score={win:0,lose:0,tie:0};
+    updateUI();
+}
+
+// Update UI
+function updateUI(user="",res=""){
+
+    if(user!==""){
+        document.getElementById("result").innerText =
+        "You: "+user+" | Computer: "+comp+" → "+res.toUpperCase();
+    }
+
+    document.getElementById("win").innerText="Win "+score.win;
+    document.getElementById("lose").innerText="Lose "+score.lose;
+    document.getElementById("tie").innerText="Tie "+score.tie;
+
+    document.getElementById("userTotal").innerText=totalUserWins;
+    document.getElementById("compTotal").innerText=totalCompWins;
+    document.getElementById("tieTotal").innerText=totalTies;
+}
+
+</script>
+
+</body>
+</html>
