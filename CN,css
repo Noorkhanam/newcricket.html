@@ -1,0 +1,83 @@
+body{
+    margin:0;
+    font-family:Arial;
+    background:linear-gradient(135deg,#1d2671,#c33764);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+}
+
+.container{
+    background:white;
+    padding:25px;
+    border-radius:15px;
+    width:330px;
+    text-align:center;
+    box-shadow:0 10px 30px rgba(0,0,0,0.3);
+}
+
+h1{
+    margin-bottom:15px;
+}
+
+/* Buttons */
+.btn{
+    width:100%;
+    padding:12px;
+    margin:6px 0;
+    border:none;
+    border-radius:10px;
+    font-size:16px;
+    color:white;
+    cursor:pointer;
+}
+
+.btn.bat{background:#3b82f6;}
+.btn.ball{background:#10b981;}
+.btn.stump{background:#f59e0b;}
+.btn.undo{background:#6366f1;}
+.btn.reset{background:#ef4444;}
+
+.btn:hover{
+    transform:scale(1.05);
+    opacity:0.9;
+}
+
+/* Result */
+#result{
+    margin-top:10px;
+    font-weight:bold;
+}
+
+/* Score */
+.score{
+    display:flex;
+    justify-content:space-between;
+    margin-top:10px;
+}
+
+.box{
+    width:30%;
+    padding:10px;
+    border-radius:10px;
+    color:white;
+    font-weight:bold;
+}
+
+.win{background:#22c55e;}
+.lose{background:#ef4444;}
+.tie{background:#64748b;}
+
+/* Leaderboard */
+.leaderboard{
+    margin-top:15px;
+    padding:12px;
+    border-radius:12px;
+    background:#f8fafc;
+    text-align:left;
+}
+
+.leaderboard h3{
+    margin-bottom:8px;
+}
